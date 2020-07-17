@@ -1,5 +1,7 @@
 const express = require('express');
 
+const cors = require('cors');
+
 const app = express();
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
@@ -8,7 +10,7 @@ const mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost:27017/gql-ninja",{useNewUrlParser:true,useUnifiedTopology:true});
 mongoose.connection.once('open',()=>{console.log('connected to database')});
 
-
+app.use(cors());
 app.use('/graphql',graphqlHTTP({
     schema,
     graphiql:true
